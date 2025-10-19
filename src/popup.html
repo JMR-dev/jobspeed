@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobSpeed</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="popup-container">
+      <header>
+        <h1>JobSpeed</h1>
+        <p class="subtitle">Auto-fill job applications</p>
+      </header>
+
+      <main>
+        <section class="resume-section">
+          <h2>Resume</h2>
+          <div id="resume-status" class="status-container">
+            <p class="status-text">No resume uploaded</p>
+          </div>
+
+          <div class="upload-container">
+            <input
+              type="file"
+              id="resume-file-input"
+              accept=".pdf,.txt,.doc,.docx"
+              style="display: none"
+            />
+            <button id="upload-button" class="primary-button">
+              Upload Resume
+            </button>
+          </div>
+
+          <div id="resume-preview" class="resume-preview hidden">
+            <h3>Resume Data</h3>
+            <div id="resume-data"></div>
+            <button id="clear-resume-button" class="secondary-button">
+              Clear Resume
+            </button>
+          </div>
+        </section>
+
+        <section class="actions-section">
+          <h2>Actions</h2>
+          <button id="scan-page-button" class="primary-button">
+            Scan Current Page
+          </button>
+          <p class="help-text">
+            Click to detect form fields on the current page and preview
+            auto-fill suggestions
+          </p>
+        </section>
+      </main>
+
+      <footer>
+        <p class="version">v1.0.0</p>
+      </footer>
+    </div>
+    <script src="popup.ts" type="module"></script>
+  </body>
+</html>
