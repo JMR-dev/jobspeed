@@ -1,0 +1,93 @@
+name: Status Checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  extension-unit-tests:
+    name: Extension Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run extension unit tests
+        run: pnpm test -- --run --reporter=verbose
+
+  demo-unit-tests:
+    name: Demo App Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: |
+          pnpm install --frozen-lockfile
+          cd job-application-demo && pnpm install --frozen-lockfile
+
+      - name: Run demo unit tests
+        run: cd job-application-demo && pnpm test -- --run --reporter=verbose
+
+  demo-e2e-tests:
+    name: Demo App E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.18.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: |
+          pnpm install --frozen-lockfile
+          cd job-application-demo && pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: cd job-application-demo && npx playwright install --with-deps chromium firefox
+
+      - name: Run E2E tests
+        run: cd job-application-demo && pnpm test:e2e
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: job-application-demo/playwright-report/
+          retention-days: 30
