@@ -9,10 +9,10 @@
     "copy:icons": "mkdir -p dist/icons && cp src/icons/*.svg dist/icons/",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,json,css}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,json,css}\""
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .ts,.tsx",
+    "lint:fix": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write \"{src,job-application-demo/src}/**/*.{ts,tsx,json,css}\"",
+    "format:check": "prettier --check \"{src,job-application-demo/src}/**/*.{ts,tsx,json,css}\""
   },
   "keywords": [
     "firefox",

@@ -125,6 +125,14 @@ export class FieldMatcher {
       );
     }
 
+    if (this.matchesAny(fieldText, ['github', 'git hub', 'github url'])) {
+      return this.createMapping(
+        field,
+        'personalInfo.github',
+        this.resumeData.personalInfo.github || ''
+      );
+    }
+
     if (this.matchesAny(fieldText, ['website', 'portfolio', 'url'])) {
       return this.createMapping(
         field,
@@ -176,7 +184,7 @@ export class FieldMatcher {
         'institution',
       ])
     ) {
-      const latestEd = this.resumeData.education[0];
+      const latestEd = this.resumeData.education?.[0];
       return this.createMapping(
         field,
         'education.institution',
@@ -185,7 +193,7 @@ export class FieldMatcher {
     }
 
     if (this.matchesAny(fieldText, ['degree', 'qualification'])) {
-      const latestEd = this.resumeData.education[0];
+      const latestEd = this.resumeData.education?.[0];
       return this.createMapping(
         field,
         'education.degree',
@@ -201,7 +209,7 @@ export class FieldMatcher {
         'specialization',
       ])
     ) {
-      const latestEd = this.resumeData.education[0];
+      const latestEd = this.resumeData.education?.[0];
       return this.createMapping(
         field,
         'education.field',
@@ -210,8 +218,57 @@ export class FieldMatcher {
     }
 
     if (this.matchesAny(fieldText, ['gpa'])) {
-      const latestEd = this.resumeData.education[0];
+      const latestEd = this.resumeData.education?.[0];
       return this.createMapping(field, 'education.gpa', latestEd?.gpa || '');
+    }
+
+    // Certifications
+    if (
+      this.matchesAny(fieldText, [
+        'certification',
+        'certificate',
+        'certification name',
+        'cert name',
+      ])
+    ) {
+      const latestCert = this.resumeData.certifications?.[0];
+      return this.createMapping(
+        field,
+        'certifications.certificationName',
+        latestCert?.certificationName || ''
+      );
+    }
+
+    if (
+      this.matchesAny(fieldText, [
+        'certification date',
+        'cert date',
+        'acquired',
+        'acquired date',
+      ])
+    ) {
+      const latestCert = this.resumeData.certifications?.[0];
+      return this.createMapping(
+        field,
+        'certifications.acquiredDate',
+        latestCert?.acquiredDate || ''
+      );
+    }
+
+    if (
+      this.matchesAny(fieldText, [
+        'area of expertise',
+        'expertise',
+        'certification area',
+        'cert area',
+      ])
+    ) {
+      const latestCert = this.resumeData.certifications?.[0];
+      return this.createMapping(
+        field,
+        'certifications.areaOfExpertise',
+        latestCert?.areaOfExpertise || ''
+      );
     }
 
     // Skills

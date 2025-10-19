@@ -35,31 +35,3 @@ export interface ResumeData {
   skills: string[];
   summary?: string;
 }
-
-export interface Message {
-  type: string;
-  data?: unknown;
-}
-
-export interface MessageResponse {
-  success: boolean;
-  data?: unknown;
-  error?: string;
-}
-
-export interface FormField {
-  element: HTMLElement;
-  type: string;
-  name: string;
-  id: string;
-  label: string;
-  value: string;
-  suggestedValue?: string;
-  confidence?: number;
-}
-
-export interface FieldMapping {
-  field: FormField;
-  mappedTo: string;
-  value: string;
-}

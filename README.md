@@ -82,7 +82,29 @@ src/
 └── services/
     ├── formDetector.ts     # Form field detection logic
     └── fieldMatcher.ts     # Resume-to-field matching logic
+
+job-application-demo/       # Sample job application form (separate app)
 ```
+
+### Demo Application
+
+The `job-application-demo` folder contains a standalone sample job application form built with Vite, React, Material UI, and TypeScript. This demo app:
+
+- Showcases the structure and fields used by the JobSpeed extension
+- Uses the same `ResumeData` interface as the extension
+- Saves submitted applications as incremental JSON files
+- Is excluded from the main extension build
+- Has its own `package.json` and can be run independently
+
+To run the demo:
+
+```bash
+cd job-application-demo
+pnpm install
+pnpm dev
+```
+
+See [job-application-demo/README.md](job-application-demo/README.md) for more details.
 
 ## Usage
 
