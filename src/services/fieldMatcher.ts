@@ -28,7 +28,7 @@ export class FieldMatcher {
     // Personal Info mappings - check specific names first before generic "name"
     if (this.matchesAny(fieldText, ['first name', 'firstname', 'given name'])) {
       const firstName =
-        this.resumeData.personalInfo.fullName.split(' ')[0] || '';
+        this.resumeData.personalInfo.fullName.split(' ')[0] ?? '';
       return this.createMapping(field, 'personalInfo.firstName', firstName);
     }
 
@@ -41,7 +41,7 @@ export class FieldMatcher {
       ])
     ) {
       const parts = this.resumeData.personalInfo.fullName.split(' ');
-      const lastName = parts[parts.length - 1] || '';
+      const lastName = parts[parts.length - 1] ?? '';
       return this.createMapping(field, 'personalInfo.lastName', lastName);
     }
 
@@ -73,7 +73,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'personalInfo.address',
-        this.resumeData.personalInfo.address
+        this.resumeData.personalInfo.address ?? ''
       );
     }
 
@@ -105,7 +105,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'personalInfo.zipCode',
-        this.resumeData.personalInfo.zipCode
+        this.resumeData.personalInfo.zipCode ?? ""
       );
     }
 
@@ -113,7 +113,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'personalInfo.country',
-        this.resumeData.personalInfo.country
+        this.resumeData.personalInfo.country ?? ''
       );
     }
 
@@ -121,7 +121,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'personalInfo.linkedIn',
-        this.resumeData.personalInfo.linkedIn || ''
+        this.resumeData.personalInfo.linkedIn ?? ''
       );
     }
 
@@ -129,7 +129,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'personalInfo.github',
-        this.resumeData.personalInfo.github || ''
+        this.resumeData.personalInfo.github ?? ''
       );
     }
 
@@ -137,7 +137,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'personalInfo.website',
-        this.resumeData.personalInfo.website || ''
+        this.resumeData.personalInfo.website ?? ''
       );
     }
 
@@ -154,7 +154,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'workExperience.company',
-        latestJob?.company || ''
+        latestJob?.company ?? ''
       );
     }
 
@@ -171,7 +171,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'workExperience.position',
-        latestJob?.position || ''
+        latestJob?.position ?? ''
       );
     }
 
@@ -188,7 +188,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'education.institution',
-        latestEd?.institution || ''
+        latestEd?.institution ?? ''
       );
     }
 
@@ -197,7 +197,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'education.degree',
-        latestEd?.degree || ''
+        latestEd?.degree ?? ''
       );
     }
 
@@ -213,13 +213,13 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'education.field',
-        latestEd?.field || ''
+        latestEd?.field ?? ''
       );
     }
 
     if (this.matchesAny(fieldText, ['gpa'])) {
       const latestEd = this.resumeData.education?.[0];
-      return this.createMapping(field, 'education.gpa', latestEd?.gpa || '');
+      return this.createMapping(field, 'education.gpa', latestEd?.gpa ?? '');
     }
 
     // Certifications
@@ -235,7 +235,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'certifications.certificationName',
-        latestCert?.certificationName || ''
+        latestCert?.certificationName ?? ''
       );
     }
 
@@ -251,7 +251,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'certifications.acquiredDate',
-        latestCert?.acquiredDate || ''
+        latestCert?.acquiredDate ?? ''
       );
     }
 
@@ -267,7 +267,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'certifications.areaOfExpertise',
-        latestCert?.areaOfExpertise || ''
+        latestCert?.areaOfExpertise ?? ''
       );
     }
 
@@ -294,7 +294,7 @@ export class FieldMatcher {
       return this.createMapping(
         field,
         'summary',
-        this.resumeData.summary || ''
+        this.resumeData.summary ?? ''
       );
     }
 
