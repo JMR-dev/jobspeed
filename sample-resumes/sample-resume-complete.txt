@@ -1,0 +1,52 @@
+John Smith
+john.smith@email.com
++1-(555)-123-4567
+123 Market Street
+San Francisco, CA 94102
+United States
+LinkedIn: https://linkedin.com/in/johnsmith
+GitHub: https://github.com/johnsmith
+Website: https://johnsmith.dev
+
+PROFESSIONAL SUMMARY
+Experienced software engineer with 5+ years of expertise in full-stack web development.
+Proficient in modern JavaScript frameworks and cloud technologies. Passionate about building
+scalable applications and mentoring junior developers.
+
+WORK EXPERIENCE
+
+Senior Software Engineer
+Tech Solutions Inc. | San Francisco, CA
+January 2020 - Present
+Lead development of customer-facing web applications using React and Node.js. Mentor junior
+developers and conduct code reviews. Improved application performance by 40% through optimization
+and refactoring. Implemented CI/CD pipelines and cloud infrastructure on AWS.
+
+Software Developer
+Digital Innovations | San Jose, CA
+June 2018 - December 2019
+Built RESTful APIs using Node.js and Express. Implemented responsive UI components with React.
+Collaborated with cross-functional teams to deliver high-quality software solutions. Participated
+in agile development processes and sprint planning.
+
+EDUCATION
+
+Bachelor of Science in Computer Science
+Stanford University
+Field of Study: Computer Science
+Graduated: May 2018
+GPA: 3.8
+
+CERTIFICATIONS
+
+AWS Certified Solutions Architect
+Acquired: March 2021
+Area of Expertise: Cloud Architecture and Infrastructure
+
+Google Cloud Professional Developer
+Acquired: September 2020
+Area of Expertise: Cloud Development and Deployment
+
+SKILLS
+JavaScript, TypeScript, React, Node.js, Python, Java, SQL, MongoDB, PostgreSQL,
+AWS, Docker, Kubernetes, Git, CI/CD, Agile, REST APIs, GraphQL

@@ -3,11 +3,11 @@ export interface ResumeData {
     fullName: string;
     email: string;
     phone: string;
-    address: string;
+    address?: string;
     city: string;
     state: string;
-    zipCode: string;
-    country: string;
+    zipCode?: string;
+    country?: string;
     linkedIn?: string;
     github?: string;
     website?: string;
