@@ -10,7 +10,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "test:e2e": "pnpm test:e2e --project=chromium --project=firefox",
+    "test:e2e": "playwright test --project=chromium --project=firefox --reporter=list",
     "test:e2e:ui": "playwright test --project=chromium --project=firefox --ui",
     "test:e2e:report": "playwright show-report"
   },
