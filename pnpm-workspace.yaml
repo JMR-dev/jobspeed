@@ -1,2 +1,5 @@
+packages:
+  - 'job-application-demo'
+
 onlyBuiltDependencies:
   - esbuild

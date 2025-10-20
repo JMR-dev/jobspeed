@@ -139,7 +139,7 @@ function App() {
           Fields marked with * are required
         </Typography>
 
-        <Box component="form" onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit} noValidate>
           <PersonalInfoForm
             data={formData.personalInfo}
             onChange={(personalInfo) =>

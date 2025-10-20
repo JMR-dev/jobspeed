@@ -77,7 +77,7 @@ describe('App', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(/please fill in all required personal information/i)
+        screen.getByText(/please fill in all required personal information fields/i)
       ).toBeInTheDocument();
     });
   });
@@ -147,9 +147,8 @@ describe('App', () => {
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(
-        screen.getByText(/please add at least one skill/i)
-      ).toBeInTheDocument();
+      const alert = screen.getByRole('alert');
+      expect(alert).toHaveTextContent(/please add at least one skill/i);
     });
   });
 
