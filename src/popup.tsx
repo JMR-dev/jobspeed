@@ -64,30 +64,11 @@ const PopupApp: React.FC = () => {
   };
 
   const handleUploadResume = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.pdf,.txt,.doc,.docx';
-    input.onchange = async (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
-      if (!file) return;
-
-      try {
-        const text = await file.text();
-        const parsedData = parseResume(text);
-
-        await browser.runtime.sendMessage({
-          type: 'SAVE_RESUME_DATA',
-          data: parsedData,
-        });
-
-        await loadResumeStatus();
-        alert('Resume uploaded successfully!');
-      } catch (error) {
-        console.error('Error uploading resume:', error);
-        alert('Error uploading resume. Please try again.');
-      }
-    };
-    input.click();
+    // Open the upload page in a new tab to avoid popup closing in Firefox
+    void browser.tabs.create({
+      url: browser.runtime.getURL('upload.html'),
+    });
+    window.close();
   };
 
   const handleClearResume = async () => {
@@ -131,43 +112,6 @@ const PopupApp: React.FC = () => {
       console.error('Error scanning page:', error);
       alert('Error scanning page. Please try again.');
     }
-  };
-
-  const parseResume = (text: string): ResumeData => {
-    const lines = text.split('\n').filter((line) => line.trim());
-
-    return {
-      personalInfo: {
-        fullName:
-          lines
-            .find((line) => line.match(/^[A-Z][a-z]+ [A-Z][a-z]+/))
-            ?.trim() || '',
-        email:
-          lines
-            .find((line) =>
-              line.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)
-            )
-            ?.trim() || '',
-        phone:
-          lines
-            .find((line) =>
-              line.match(/(\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/)
-            )
-            ?.trim() || '',
-        address:
-          lines
-            .find((line) => line.match(/\d+\s+\w+\s+(St|Ave|Rd|Blvd|Ln|Dr)/i))
-            ?.trim() || '',
-        city: '',
-        state: '',
-        zipCode: '',
-        country: '',
-      },
-      workExperience: [],
-      education: [],
-      skills: [],
-      summary: '',
-    };
   };
 
   return (

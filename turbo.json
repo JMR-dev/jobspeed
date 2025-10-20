@@ -1,0 +1,72 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "build/**"],
+      "inputs": ["src/**", "tsconfig.json", "vite.config.ts", "package.json"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"],
+      "inputs": ["src/**", "test/**", "vitest.config.ts", "tsconfig.json"]
+    },
+    "test:ui": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^build"]
+    },
+    "test:coverage": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/**"],
+      "inputs": ["src/**", "test/**", "vitest.config.ts", "tsconfig.json"]
+    },
+    "test:e2e": {
+      "dependsOn": ["build"],
+      "outputs": ["playwright-report/**", "test-results/**"],
+      "inputs": ["src/**", "e2e/**", "playwright.config.ts"]
+    },
+    "test:e2e:ui": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "outputs": [],
+      "inputs": ["src/**", ".eslintrc.json", "tsconfig.json"]
+    },
+    "lint:fix": {
+      "cache": false,
+      "outputs": ["src/**"],
+      "inputs": ["src/**", ".eslintrc.json", "tsconfig.json"]
+    },
+    "format": {
+      "cache": false,
+      "outputs": ["src/**"],
+      "inputs": [".prettierrc", ".prettierignore"]
+    },
+    "format:check": {
+      "outputs": [],
+      "inputs": ["src/**", ".prettierrc", ".prettierignore"]
+    },
+    "copy:icons": {
+      "outputs": ["dist/icons/**"],
+      "inputs": ["src/icons/**"]
+    },
+    "build:upload": {
+      "dependsOn": ["build"],
+      "outputs": ["dist/upload.html", "dist/upload.js"],
+      "inputs": ["src/upload.tsx", "src/upload.html", "scripts/build-upload.mjs"]
+    }
+  }
+}

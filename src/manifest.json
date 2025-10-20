@@ -26,5 +26,11 @@
       "js": ["content.ts"],
       "run_at": "document_idle"
     }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["upload.html"],
+      "matches": ["<all_urls>"]
+    }
   ]
 }

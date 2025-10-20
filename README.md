@@ -17,6 +17,9 @@ A Firefox browser extension that helps you auto-fill job applications using your
 - **Vitest** - Unit testing
 - **ESLint** + **Prettier** - Code quality and formatting
 - **Native Browser API** - Firefox WebExtensions API
+- **PDF.js** - Client-side PDF parsing
+- **Mammoth** - Client-side DOCX parsing
+- **Turborepo** - Monorepo management
 
 ## Getting Started
 
@@ -33,7 +36,7 @@ A Firefox browser extension that helps you auto-fill job applications using your
 pnpm install
 ```
 
-2. Start development mode:
+2. Start extension development mode:
 
 ```bash
 pnpm dev
@@ -57,6 +60,7 @@ The production-ready extension will be in the `dist` folder.
 
 ### Available Scripts
 
+**Extension Scripts:**
 - `pnpm dev` - Build and watch for changes
 - `pnpm build` - Production build
 - `pnpm test` - Run tests
@@ -65,6 +69,17 @@ The production-ready extension will be in the `dist` folder.
 - `pnpm lint:fix` - Fix linting issues
 - `pnpm format` - Format code with Prettier
 - `pnpm format:check` - Check code formatting
+
+**Turborepo Scripts (run tasks across all packages):**
+- `pnpm turbo:build` - Build all packages in parallel with caching
+- `pnpm turbo:test` - Run tests across all packages
+- `pnpm turbo:lint` - Lint all packages
+- `pnpm turbo:format` - Format all packages
+
+**Advanced Turbo Commands:**
+- `turbo run build --filter=job-application-demo` - Build only the demo app
+- `turbo run test --force` - Skip cache and run all tests
+- `turbo run build --dry` - See what would run without executing
 
 ### Project Structure
 
@@ -76,15 +91,32 @@ src/
 ├── popup.ts                # Popup UI logic
 ├── popup.html              # Popup HTML
 ├── popup.css               # Popup styles
+├── upload.tsx              # Resume upload UI (React)
+├── upload.html             # Upload page HTML
 ├── types/
 │   ├── index.ts            # Type definitions
 │   └── browser.d.ts        # Browser API types
-└── services/
-    ├── formDetector.ts     # Form field detection logic
-    └── fieldMatcher.ts     # Resume-to-field matching logic
+├── services/
+│   ├── formDetector.ts     # Form field detection logic
+│   └── fieldMatcher.ts     # Resume-to-field matching logic
+└── utils/
+    └── resumeParser.ts     # Client-side resume parsing (PDF, DOCX)
 
 job-application-demo/       # Sample job application form (separate app)
 ```
+
+### Client-Side Resume Parsing
+
+The extension includes a built-in client-side resume parser that handles file parsing directly in the browser:
+
+- Parses PDF files using PDF.js (Mozilla's PDF library)
+- Parses DOCX files using Mammoth
+- Extracts structured resume data (personal info, work experience, education, skills)
+- All parsing happens locally in your browser
+- No external servers or network requests required
+- Works completely offline
+
+The parser is located in `src/utils/resumeParser.ts` and is automatically used when you upload a resume through the extension.
 
 ### Demo Application
 
@@ -111,7 +143,8 @@ See [job-application-demo/README.md](job-application-demo/README.md) for more de
 1. **Upload Your Resume**:
    - Click the JobSpeed extension icon
    - Click "Upload Resume"
-   - Select your resume file (PDF, TXT, DOC, DOCX)
+   - Select your resume file (PDF or DOCX)
+   - The extension will parse the file directly in your browser
 
 2. **Auto-fill a Job Application**:
    - Navigate to a job application page
@@ -124,12 +157,18 @@ See [job-application-demo/README.md](job-application-demo/README.md) for more de
 
 ### Resume Parsing
 
-The extension extracts key information from your resume:
-- Personal information (name, email, phone, address)
-- Work experience
-- Education
-- Skills
-- Professional summary
+The extension parses your resume files directly in the browser and extracts key information:
+- **Personal information** (name, email, phone, address)
+- **Work experience**
+- **Education**
+- **Skills**
+- **Professional summary**
+
+Supported formats:
+- **PDF** - Parsed using PDF.js (Mozilla's library)
+- **DOCX** - Parsed using Mammoth
+
+The parsed data is stored locally in your browser storage.
 
 ### Smart Field Matching
 
@@ -141,8 +180,11 @@ The field matcher uses intelligent algorithms to match resume data with form fie
 
 ### Privacy & Security
 
-- All data is stored locally in your browser
-- No data is sent to external servers
+- All resume parsing happens **client-side** in your browser
+- All parsed resume data is stored locally in your browser storage
+- No data is sent to external servers or third parties
+- Resume files are processed entirely in memory within the extension
+- Works completely offline
 - You have full control over your resume data
 
 ## Contributing

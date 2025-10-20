@@ -10,3 +10,5 @@ coverage
 *~
 web-ext-artifacts
 .claude/
+.pnpm*
+.turbo

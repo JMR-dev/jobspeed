@@ -56,29 +56,22 @@ jobs:
   demo-e2e-tests:
     name: Demo App E2E Tests
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/jobspeed-playwright-runner:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.18.1
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'pnpm'
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Install Playwright browsers
-        run: cd job-application-demo && npx playwright install --with-deps chromium firefox
+        working-directory: job-application-demo
 
       - name: Run E2E tests
-        run: cd job-application-demo && pnpm test:e2e
+        run: pnpm test:e2e
+        working-directory: job-application-demo
 
       - name: Upload test results
         if: failure()
