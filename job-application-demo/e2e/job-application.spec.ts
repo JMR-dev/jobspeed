@@ -24,11 +24,10 @@ test.describe('Job Application Form', () => {
     ).toBeVisible();
   });
 
-  // Skipped: HTML5 validation prevents testing custom validation messages
-  test.skip('should show validation errors for incomplete required fields', async ({
+  test('should show validation errors for incomplete required fields', async ({
     page,
   }) => {
-    // Fill some fields to bypass HTML5 validation
+    // Fill some fields but leave others empty to trigger custom validation
     await page.getByLabel(/full name/i).fill('John Doe');
     await page.getByLabel(/email/i).fill('john@example.com');
     // Leave other required fields empty
