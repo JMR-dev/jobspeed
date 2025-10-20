@@ -48,9 +48,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: |
-          pnpm install --frozen-lockfile
-          cd job-application-demo && pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Run demo unit tests
         run: cd job-application-demo && pnpm test -- --run --reporter=verbose
@@ -74,9 +72,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: |
-          pnpm install --frozen-lockfile
-          cd job-application-demo && pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Install Playwright browsers
         run: cd job-application-demo && npx playwright install --with-deps chromium firefox
