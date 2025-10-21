@@ -29,7 +29,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["upload.html"],
+      "resources": ["upload.html", "names.sqlite", "sql-wasm.wasm"],
       "matches": ["<all_urls>"]
     }
   ]

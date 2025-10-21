@@ -31,7 +31,9 @@ export default defineConfig({
         assetFileNames: '[name].[ext]',
       },
     },
+    copyPublicDir: true,
   },
+  assetsInclude: ['**/*.sqlite', '**/*.wasm'],
   test: {
     globals: true,
     environment: 'jsdom',

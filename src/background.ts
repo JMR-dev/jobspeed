@@ -1,9 +1,15 @@
 /// <reference types="firefox-webext-browser" />
 import type { Message, MessageResponse } from './types';
+import { DataManager } from './services/dataManager';
 
 // Background service worker for JobSpeed extension
 
 console.log('JobSpeed background script loaded');
+
+// Instantiate the DataManager
+const dataManager = new DataManager();
+// Initialize the database as soon as the background script loads
+void dataManager.init(); // Initialization now loads the names.sqlite file
 
 // Listen for extension installation
 browser.runtime.onInstalled.addListener(
@@ -54,6 +60,16 @@ browser.runtime.onMessage.addListener(
           console.error('Error saving resume data:', error);
           sendResponse({ success: false, error: error.message });
         });
+      return true; // Keep message channel open for async response
+    }
+
+    if (message.type === 'GET_ALL_NAMES') {
+      dataManager
+        .getAllNames()
+        .then((data) => sendResponse({ success: true, data }))
+        .catch((error: Error) =>
+          sendResponse({ success: false, error: error.message })
+        );
       return true; // Keep message channel open for async response
     }
 

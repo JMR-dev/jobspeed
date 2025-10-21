@@ -4,22 +4,16 @@
   "description": "Firefox extension for auto-filling job applications",
   "type": "module",
   "scripts": {
-    "dev": "vite build --watch --mode development",
-    "build": "tsc && vite build && pnpm copy:icons && pnpm build:upload",
+    "build": "pnpm copy:static && tsc build --noEmit && turbo run build && pnpm build:upload",
     "build:upload": "node scripts/build-upload.mjs",
     "copy:icons": "mkdir -p dist/icons && cp src/icons/*.svg dist/icons/",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .ts,.tsx",
-    "lint:fix": "ESLINT_USE_FLAT_CONFIG=false eslint . --ext .ts,.tsx --fix",
-    "format": "prettier --write \"{src,job-application-demo/src}/**/*.{ts,tsx,json,css}\"",
-    "format:check": "prettier --check \"{src,job-application-demo/src}/**/*.{ts,tsx,json,css}\"",
-    "turbo:build": "turbo run build",
-    "turbo:dev": "turbo run dev",
-    "turbo:test": "turbo run test",
-    "turbo:lint": "turbo run lint",
-    "turbo:format": "turbo run format",
-    "turbo:format:check": "turbo run format:check"
+    "copy:static": "cp src/names.sqlite dist/names.sqlite && cp src/sql-wasm.wasm dist/sql-wasm.wasm",
+    "lint:fix": "turbo run lint . --ext .ts,.tsx --fix",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "format:check": "turbo run format:check"
   },
   "keywords": [
     "firefox",
@@ -35,6 +29,7 @@
     "@types/node": "^24.8.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "@types/sql.js": "^1.4.9",
     "@typescript-eslint/eslint-plugin": "^8.46.1",
     "@typescript-eslint/parser": "^8.46.1",
     "@vitejs/plugin-react": "^5.0.4",
@@ -58,6 +53,7 @@
     "mammoth": "^1.11.0",
     "pdfjs-dist": "^5.4.296",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "sql.js": "^1.13.0"
   }
 }

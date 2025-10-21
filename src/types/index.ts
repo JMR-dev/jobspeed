@@ -37,7 +37,7 @@ export interface ResumeData {
 }
 
 export interface Message {
-  type: string;
+  type: 'GET_RESUME_DATA' | 'SAVE_RESUME_DATA' | 'GET_ALL_NAMES' | string;
   data?: unknown;
 }
 

@@ -27,15 +27,15 @@ export function sectionizeResume(rawText: string): Record<string, string[]> {
     'expertise': 'skills',
   };
 
-  const sections: Record<string, string[]> = {
-    header: [],
-    summary: [],
-    workExperience: [],
-    education: [],
-    skills: [],
+  const sections = {
+    header: [] as string[],
+    summary: [] as string[],
+    workExperience: [] as string[],
+    education: [] as string[],
+    skills: [] as string[],
   };
 
-  let currentSection = 'header';
+  let currentSection: keyof typeof sections = 'header';
 
   for (const line of lines) {
     const normalizedLine = line.toLowerCase();
@@ -44,19 +44,14 @@ export function sectionizeResume(rawText: string): Record<string, string[]> {
     for (const [keyword, sectionKey] of Object.entries(keywordMap)) {
       // Check if the line is a major section header
       if (normalizedLine.startsWith(keyword) && line.length < 50) {
-        currentSection = sectionKey;
+        currentSection = sectionKey as keyof typeof sections;
         foundSection = true;
         break;
       }
     }
-// I'm not sure if this is the best approach. Re-evalutate in morning/soon
+
     if (!foundSection) {
-      const section = sections[currentSection];
-      if (section) {
-        section.push(line);
-      } else {
-        sections[currentSection] = [line];
-      }
+      sections[currentSection].push(line);
     }
   }
 
